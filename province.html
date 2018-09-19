@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div id="div1">
+        <select id="province">
+            <option value="0" selected>-请选择-</option>
+        </select>省
+        <select id="city">
+            <option value="0" selected>-请选择-</option>
+        </select>市
+    </div>
+
+    <style>
+        div {
+            height: 200px;
+            width: 400px;
+            background: lightseagreen;
+            text-align: center;
+        }
+    </style>
+
+    <script>
+        var pro = ["广东", "广西", "湖南"];
+        var city = [
+            ["广州", "深圳", "佛山", "东莞", "中山", "珠海", "江门", "肇庆", "惠州", "汕头", "潮州", "揭阳", "汕尾", "湛江", "茂名", "阳江", "韶关", "清远", "云浮", "梅州", "河源"],
+            ["南宁", "柳州", "桂林", "梧州", "北海", "防城港", "钦州", "贵港", "玉林", "百色", "贺州", "河池", "来宾", "崇左"],
+            ["长沙", "株洲", "湘潭", "衡阳", "邵阳", "岳阳", "常德", "张家界", "益阳", "娄底", "郴州", "永州", "怀化"]
+        ];
+        $(function () {
+            for (var i = 0; i < pro.length; i++) {
+                $('#province').append($('<option>').val(i + 1).html(pro[i]));
+            }
+            $('#province').change(function () {
+                var index = $(this).val() - 1;
+                $('#city').prop('length', 1);
+                for (var i = 0; i < city[index].length; i++) {
+                    $('#city').append($('<option>').html(city[index][i]));
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>
