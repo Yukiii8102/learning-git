@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <select name="" id="province">
+        <option value="请选择省份">请选择省份</option>
+    </select>
+    <select name="" id="cities">
+        <option value="请选择城市">请选择城市</option>
+    </select>
+    <script>
+        var data;
+        $.ajax({
+            type: "get",
+            url: "./citys.json",
+            dataType: "json",
+            success: function (response) {
+                // 暴露整个数据到全局
+                data = response.provinces;
+                $.each(response.provinces, function (index, value) {
+                    $('#province').append('<option value="' + value.provinceName + '">' + value.provinceName +
+                        '</option>');
+                });
+            }
+        });
+
+        $('#province').change(function (e) {
+            // 清空cities
+            $('#cities').empty();
+            // 保存当前指向 谁触发事件
+            var _this = this;
+            // 遍历所有省份
+            $.each(data, function (index, value) {
+                // 判断选择省份与数据中的省份相同
+                if (value.provinceName == _this.value) {
+                    // 遍历所有城市
+                    $.each(value.citys, function (index, value) {
+                        $('#cities').append('<option value="' + value.citysName + '">' + value.citysName +
+                            '</option>');
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
